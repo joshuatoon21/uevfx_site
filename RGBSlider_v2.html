@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RGB Color Picker</title>
+    <style>
+        @font-face {
+            font-family: 'PragmaticaExtendedBold';
+            src: url('PragmaticaExtendedBold.otf') format('opentype');
+            font-weight: bold;
+            font-style: normal;
+        }
+
+        body {
+            font-family: 'PragmaticaExtendedBold', 'Arial Black', Arial, sans-serif;
+            background-color: black;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .mainContainer {
+            text-align: center;
+        }
+
+        #colorDisplay {
+            width: 300px;
+            height: 200px;
+            margin-bottom: 30px;
+            border-radius: 20px;
+            background-color: rgb(255, 255, 255);
+        }
+
+        .sliderContainer {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .slider {
+            flex-grow: 1;
+            margin: 0 10px;
+            outline: none;
+            appearance: none; /* Remove default appearance */
+            width: 100%;
+            height: 10px;
+            border-radius: 5px;
+        }
+
+        #redSlider {
+            background: linear-gradient(to right, cyan, red);
+        }
+
+        #greenSlider {
+            background: linear-gradient(to right, magenta, green);
+        }
+
+        #blueSlider {
+            background: linear-gradient(to right, yellow, blue);
+        }
+
+        .slider::-webkit-slider-thumb {
+            appearance: none;
+            background-color: white;
+            cursor: pointer;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+        }
+
+        .slider::-moz-range-thumb {
+            background-color: white;
+            cursor: pointer;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+        }
+
+        .sliderLabel, .colorValue {
+            width: 30px;
+            margin: 0 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="mainContainer">
+    <div id="colorDisplay"></div>
+
+    <div class="sliderContainer">
+        <span class="colorValue">C</span>
+        <input type="range" min="0" max="255" value="255" class="slider" id="redSlider">
+        <span class="sliderLabel">R</span>
+        <span id="redValue">1.00</span>
+    </div>
+
+    <div class="sliderContainer">
+        <span class="colorValue">M</span>
+        <input type="range" min="0" max="255" value="255" class="slider" id="greenSlider">
+        <span class="sliderLabel">G</span>
+        <span id="greenValue">1.00</span>
+    </div>
+
+    <div class="sliderContainer">
+        <span class="colorValue">Y</span>
+        <input type="range" min="0" max="255" value="255" class="slider" id="blueSlider">
+        <span class="sliderLabel">B</span>
+        <span id="blueValue">1.00</span>
+    </div>
+</div>
+
+<script>
+    const redSlider = document.getElementById("redSlider");
+    const greenSlider = document.getElementById("greenSlider");
+    const blueSlider = document.getElementById("blueSlider");
+
+    const redValue = document.getElementById("redValue");
+    const greenValue = document.getElementById("greenValue");
+    const blueValue = document.getElementById("blueValue");
+
+    const colorDisplay = document.getElementById("colorDisplay");
+
+    function updateColor() {
+        const r = parseInt(redSlider.value);
+        const g = parseInt(greenSlider.value);
+        const b = parseInt(blueSlider.value);
+
+        redValue.textContent = (r / 255).toFixed(2);
+        greenValue.textContent = (g / 255).toFixed(2);
+        blueValue.textContent = (b / 255).toFixed(2);
+
+        colorDisplay.style.backgroundColor = `rgb(${r},${g},${b})`;
+    }
+
+    redSlider.addEventListener("input", updateColor);
+    greenSlider.addEventListener("input", updateColor);
+    blueSlider.addEventListener("input", updateColor);
+
+    updateColor(); // Ensure the color display is set correctly initially
+</script>
+
+</body>
+</html>
